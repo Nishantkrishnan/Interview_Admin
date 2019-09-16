@@ -1,0 +1,20 @@
+.login_header{
+ color: #607d8b !important;
+ font-family: LucidaBright,serif;
+}
+.displaying{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+.card{
+ width: 50%;
+ display: flex;
+ height: 400px;
+ justify-content: center;
+align-items: center;
+}
+.contactus-style{
+ text-align: center;
+ padding-left: 100px;
+}

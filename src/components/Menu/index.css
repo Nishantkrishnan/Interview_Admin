@@ -1,0 +1,17 @@
+.Logout{
+vertical-align: center !important;
+}
+.dashboardContent{
+  width: 50%;
+}
+
+/*
+body {
+ background-image: url("/Assets/Images/login1.jpg");
+ background-color: #cccccc;
+} */
+
+
+.logoutStyle{
+color: aliceblue;
+}

@@ -1,0 +1,15 @@
+.displaying1{
+  width: 30%;
+  display: flex;
+  height: 100px;
+  justify-content: center;
+ align-items: center;
+
+}
+.select-style{
+  width: 179px !important;
+padding: 0 18px !important;
+}
+.chipstyle{
+  background-color: rgba(0, 0, 0, 0) !important;
+}
