@@ -32,7 +32,7 @@ const  {handleFieldChange,onClickLogin,login,history}=props;
      <Grid item md={7}  style= {{background : "#009688", height:"750px", width:"50000px"}}>
 
      </Grid>
-     
+
       <Grid item md ={5} classes={{root : "displaying"}}>
                 <Card classes ={{root: "card"}}>
                 <CardContent>

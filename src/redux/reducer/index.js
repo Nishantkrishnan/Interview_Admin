@@ -1,79 +1,89 @@
-import * as actionTypes from '../actionTypes';
-import {
-  toggleDialog,
-  handleCheckLogin
-} from '../actions';
+import * as actionTypes from "../actionTypes";
 
 const initialState = {
   login: {
     username: "",
-    password: "",
+    password: ""
   },
   snackBarOpen: false,
-  message: '',
+  message: "",
   open: false,
   role: {
     rolename: "Hr"
   },
-  roles: [{
-    rolename: ""
-  }],
+  roles: {
+    rolename: "",
+    id: 1
+  },
   userDetails: {
     id: 1,
-    name: '',
-    phone: '',
-    email: '',
-    rolename: '',
-    password: ''
-
+    name: "",
+    phone: "",
+    email: "",
+    rolename: "",
+    password: "",
+    userRoles: []
   },
   usersList: [],
   length: 0,
   dialog: {
     openDialog: false,
-    title: '',
-    buttonName: ''
+    title: "",
+    buttonName: ""
   },
   actions: {
     id: 1,
-    actionName: ''
+    actionName: ""
   },
   actionList: [],
-  roleAction:{
-    actionName:"",
-    roleNames:[],
-    actionNames:[],
-    id:1,roletype:""
+  roleAction: {
+    actionName: "",
+    roleNames: [],
+    actionNames: [],
+    id: 1,
+    roletype: ""
   },
+  roleList: [],
 
   roleactionList: []
-
-}
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-
     case actionTypes.ON_CLICK_LOGIN:
       var history = action.payload.history;
       var snackBarOpen = state.snackBarOpen;
-      const {
-        username, password
-      } = state.login;
+      const { username, password } = state.login;
       var message = state.message;
       snackBarOpen = !snackBarOpen;
-      debugger
-      username === "GWL" && password === "123" ? history.push("/menu") : (username == "" && password == "" ? message = "Enter Credentials" :
-        message = "Invalid Credentials");
-      debugger
+      debugger;
+      username === "GWL" && password === "123"
+        ? history.push("/menu")
+        : username == "" && password == ""
+        ? (message = "Enter Credentials")
+        : (message = "Invalid Credentials");
+      debugger;
       return {
-        ...state, message, snackBarOpen
+        ...state,
+        message,
+        snackBarOpen
+      };
+
+    case actionTypes.ON_CLICK_LOGOUT:
+      var history = action.payload.history;
+      history.push("/");
+      return {
+        ...state,
+        login: {
+          username: "",
+          password: "",
+          snackBarOpen: !snackBarOpen
+        }
       };
 
     case actionTypes.HANDLE_FIELD_CHANGE:
-      const {
-        property, value, propertyObject
-      } = action.payload;
-console.log(state,value,property, value, propertyObject);
+      const { property, value, propertyObject } = action.payload;
+      console.log(state, value, property, value, propertyObject);
       return {
         ...state,
         [propertyObject]: {
@@ -83,268 +93,305 @@ console.log(state,value,property, value, propertyObject);
       };
 
     case actionTypes.HANDLE_CLOSE:
-      var {
-        snackBarOpen
-      } = state;
+      var { snackBarOpen } = state;
       return {
         ...state,
         snackBarOpen: !snackBarOpen
       };
 
     case actionTypes.HANDLE_DRAWER_OPEN:
-      var {
-        open
-      } = state.open;
+      var { open } = state.open;
       return {
         ...state,
         open: true
       };
 
     case actionTypes.HANDLE_DRAWER_CLOSE:
-      var {
-        open
-      } = state.open;
+      var { open } = state.open;
       return {
         ...state,
         open: false
       };
 
-    case actionTypes.HANDLE_ROLES_ON_CLICK:
+    case actionTypes.HANDLE_USER_ON_CLICK:
       var history = action.payload.history;
-      history.push('/menu/roles');
+      history.push("/menu/user");
       return {
         ...state
       };
 
+    case actionTypes.HANDLE_ROLES_ON_CLICK:
+      var history = action.payload.history;
+      history.push("/menu/roles");
+      return {
+        ...state
+      };
+
+
     case actionTypes.TOGGLE_DIALOG:
-      debugger
+      debugger;
       var {
-        dialog, userDetails, usersList, actionList, actions, roles, roleactionList
+        dialog,
+        userDetails,
+        usersList,
+        actionList,
+        actions,
+        roles,
+        roleactionList,
+        roleAction,
+        roles,
+        roleList
       } = state;
-      debugger
-      var {
-        openDialog
-      } = dialog;
-      var {
-        title, buttonName, id
-      } = action.payload;
-      debugger
+      debugger;
+      var { openDialog } = dialog;
+      var { title, buttonName, id } = action.payload;
+      debugger;
       openDialog = !openDialog;
       dialog = {
         title,
         buttonName,
         openDialog
-      }
-      debugger
-      if (buttonName == 'Update') {
-        if (title == 'Update User') {
+      };
+      debugger;
+      if (buttonName == "Update") {
+        if (title == "Update User") {
           userDetails = {
             ...usersList[id - 1],
             id
-          }
+          };
+        } else if (title == "Update roleActions") {
+          roleAction = {
+            ...roleactionList[id - 1],
+            id
+          };
+
+        }else if(title =="Update Roles"){
+          roles= {
+            ...roleList[id-1],
+            id
+          };
         }
-         else {
+
+        else {
           actions = {
             ...actionList[id - 1],
             id
-          }
+          };
         }
       }
-      debugger
+      debugger;
       return {
         ...state,
         dialog,
-        userDetails, actions, actionList
+        userDetails,
+        actions,
+        actionList,
+        roleAction,
+        roleactionList,
+        roles,roleList
       };
 
     case actionTypes.ON_CLICK_CREATE_ROLE:
-      debugger
-      var {
-        usersList, userDetails, dialog, roleactionList
-      } = state;
-      var {
-        id
-      } = userDetails;
+      debugger;
+      var { usersList, userDetails, dialog } = state;
+      var { id } = userDetails;
       usersList[id - 1] = userDetails;
-      debugger
+      debugger;
       id = id + 1;
-      debugger
+      debugger;
       return {
         ...state,
         id,
-        userDetails, usersList,
+        userDetails,
+        usersList,
         userDetails: {
-            name: '',
-            mobile: '',
-            email: '',
-            password: '',
-            rolename: '',
-            id: id
-          },
-          dialog: {
-            openDialog: false
-          }
-
+          name: "",
+          mobile: "",
+          email: "",
+          password: "",
+          userRoles: [],
+          id: id
+        },
+        dialog: {
+          openDialog: false
+        }
       };
 
     case actionTypes.ON_CLICK_UPDATE_ROLE:
-      debugger
-      var {
-        userDetails, usersList, dialog
-      } = state;
-      var {
-        id
-      } = userDetails;
-      debugger
+      debugger;
+      var { userDetails, usersList, dialog } = state;
+      var { id } = userDetails;
+      debugger;
       usersList[userDetails.id - 1] = userDetails;
-      debugger
+      debugger;
       return {
         ...state,
         userDetails,
         usersList,
         dialog: {
-            openDialog: false
-          },
-          userDetails: {
-            id: usersList.length + 1,
-            name: '',
-            mobile: '',
-            email: '',
-            password: '',
-            rolename: '',
-          }
+          openDialog: false
+        },
+        userDetails: {
+          id: usersList.length + 1,
+          name: "",
+          mobile: "",
+          email: "",
+          password: "",
+          userRoles: []
+        }
       };
 
     case actionTypes.ON_CLICK_DELETE_ROLE:
-      debugger
-      var {
-        usersList
-      } = state;
-      var {
-        id
-      } = action.payload;
-      debugger
+      debugger;
+      var { usersList } = state;
+      var { id } = action.payload;
+      debugger;
       usersList = usersList.filter(uList => uList.id != id);
-      debugger
+
+      debugger;
       return {
         ...state,
         usersList
       };
 
-
     case actionTypes.HANDLE_ACTIONS_ON_CLICK:
       var history = action.payload.history;
-      history.push('/menu/actions');
+      history.push("/menu/actions");
       return {
         ...state
       };
 
-
     case actionTypes.ON_CLICK_CREATE_ACTION:
-      debugger
-      var {
-        actionList, dialog, actions
-      } = state;
-      var {
-        openDialog
-      } = dialog;
-      var {
-        id
-      } = actions;
-      debugger
+      debugger;
+      var { actionList, dialog, actions } = state;
+      var { openDialog } = dialog;
+      var { id } = actions;
+      debugger;
       actionList[id - 1] = actions;
       id = id + 1;
-      debugger
+      debugger;
       return {
         ...state,
         id,
         actions,
         actionList,
         actions: {
-            actionName: '',
-            id: id
-          },
-          dialog: {
-            openDialog: false
-          }
-      };
-
-    case actionTypes.ON_CLICK_UPDATE_ACTION:
-      debugger
-      var {
-        actionList, actions, dialog,
-      } = state;
-      var {
-        id
-      } = actions;
-      debugger
-      actionList[actions.id - 1] = actions;
-      debugger
-      return {
-        ...state,
-        actions,
-        actionList,
-        dialog: {
-            openDialog: false
-          },
-          actions: {
-            id: actionList.length + 1,
-            actionName: ''
-          }
-      };
-
-    case actionTypes.ON_CLICK_DELETE_ACTION:
-      debugger
-      var {
-        actionList,roleactionList
-      } = state;
-      var {
-        id
-      } = action.payload;
-      debugger
-      actionList = actionList.filter(aList => aList.id != id);
-      roleactionList=roleactionList.filter(blist=>blist.id !=id);
-      debugger
-      return {
-        ...state,
-        actionList,roleactionList
-      };
-
-    case actionTypes.HANDLE_ROLE_ACTION_ON_CLICK:
-      var history = action.payload.history;
-      history.push('/menu/role-action');
-      return {
-        ...state
-      };
-
-    case actionTypes.MAP_ACTION_ROLE:
-    var {roleAction,roleactionList,dialog}=state;
-    var {actionName,roletype}=roleAction;
-    var {
-      id
-    } = roleAction;
-    debugger
-    roleactionList[roleAction.id - 1] = roleAction;
-    id = id + 1;
-    debugger
-    return {
-      ...state,
-      id,
-      roleAction,
-      roleactionList,
-      roleAction: {
-          actionNames: [],roleNames:[],
+          actionName: "",
           id: id
         },
         dialog: {
           openDialog: false
         }
-    };
+      };
 
+    case actionTypes.ON_CLICK_UPDATE_ACTION:
+      debugger;
+      var { actionList, actions, dialog } = state;
+      var { id } = actions;
+      debugger;
+      actionList[actions.id - 1] = actions;
+      debugger;
+      return {
+        ...state,
+        actions,
+        actionList,
+        dialog: {
+          openDialog: false
+        },
+        actions: {
+          id: actionList.length + 1,
+          actionName: ""
+        }
+      };
+
+      case actionTypes.ON_CLICK_UPDATE_USER_ROLE:
+      var{roles,roleList,dialog}=state;
+      var{id}=roles;
+      roleList[roles.id-1]=roles;
+      return{
+        ...state,
+        roleList,
+        roles,
+        dialog:{
+          openDialog:false
+        },
+        roles:{
+          id:roleList.length+1,
+          rolename: ""
+        }
+      };
+
+
+
+    case actionTypes.ON_CLICK_DELETE_ACTION:
+      debugger;
+      var { actionList, roleactionList,roleList } = state;
+      var { id } = action.payload;
+      debugger;
+      actionList = actionList.filter(aList => aList.id != id);
+      roleactionList = roleactionList.filter(blist => blist.id != id);
+      roleList=roleList.filter(cList=>cList.id !=id);
+      debugger;
+      return {
+        ...state,
+        actionList,
+        roleactionList,roleList
+      };
+
+    case actionTypes.HANDLE_ROLE_ACTION_ON_CLICK:
+      var history = action.payload.history;
+      history.push("/menu/role-action");
+      return {
+        ...state
+      };
+
+    case actionTypes.MAP_ACTION_ROLE:
+      var { roleAction, roleactionList, dialog } = state;
+      var { actionName, roletype } = roleAction;
+      var { id } = roleAction;
+      debugger;
+      roleactionList[roleAction.id - 1] = roleAction;
+      id = id + 1;
+      debugger;
+      return {
+        ...state,
+        id,
+        roleAction,
+        roleactionList,
+        roleAction: {
+          actionNames: [],
+          roleNames: [],
+          id: id
+        },
+        dialog: {
+          openDialog: false
+        }
+      };
+    case actionTypes.HANDLE_CREATE_USER_ROLE:
+      var { roleList, dialog, roles } = state;
+      var { id } = roles;
+      debugger;
+
+      debugger;
+      roleList[roles.id - 1] = roles;
+      id = id + 1;
+      debugger;
+      return {
+        ...state,
+        id,
+        roles,
+        roleList,
+        roles: {
+          rolename: "",
+          id: id
+        },
+        dialog: {
+          openDialog: false
+        }
+      };
 
     default:
       return state;
-
   }
-}
+};
 export default reducer;

@@ -30,6 +30,16 @@ export const onClickLogin=(history)=>{
   };
 };
 
+export const onClickLogout=(history)=>{
+  return {
+    type : actionTypes.ON_CLICK_LOGOUT,
+    payload : {
+      history
+    }
+  };
+};
+
+
 export const handleDrawerOpen = () => {
   return {
     type : actionTypes.HANDLE_DRAWER_OPEN
@@ -39,6 +49,15 @@ export const handleDrawerOpen = () => {
 export const handleDrawerClose = () => {
   return {
     type : actionTypes.HANDLE_DRAWER_CLOSE
+  };
+};
+
+export const handleUserOnClick = (history) => {
+  return {
+    type : actionTypes.HANDLE_USER_ON_CLICK,
+    payload : {
+      history
+    }
   };
 };
 
@@ -133,3 +152,15 @@ export const mapRoleAction = () => {
     type : actionTypes.MAP_ACTION_ROLE
   };
 };
+
+
+export const handleCreateUserRole = () => {
+  return {
+    type : actionTypes.HANDLE_CREATE_USER_ROLE
+  };
+};
+export const onClickUpdateUserRole=()=>{
+  return{
+    type:actionTypes.ON_CLICK_UPDATE_USER_ROLE
+  };
+}

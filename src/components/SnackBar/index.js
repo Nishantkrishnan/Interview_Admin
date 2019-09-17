@@ -1,4 +1,5 @@
 import React from 'react';
+import './index.css';
 import Snackbar from '@material-ui/core/Snackbar';
 import {Card,CardContent,Toolbar,Typography,AppBar,IconButton} from '@material-ui/core';
 import {connect} from 'react-redux';
@@ -15,12 +16,13 @@ const SnackBar = (props) =>{
               horizontal: 'right-center',
             }}
             open={snackBarOpen}
-            autoHideDuration={10000}
+            autoHideDuration={2000}
             onClose= {handleClose}
             ContentProps={{
               'aria-describedby': 'message-id',
             }}
-            message=<span id="message-id">{message}</span>
+
+            message=<span id="message-id" >{message}</span>
             action={[
 <IconButton
  key="close"
