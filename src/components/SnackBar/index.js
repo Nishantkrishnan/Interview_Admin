@@ -16,6 +16,8 @@ const SnackBar = (props) =>{
               horizontal: 'right-center',
             }}
             open={snackBarOpen}
+
+
             autoHideDuration={2000}
             onClose= {handleClose}
             ContentProps={{

@@ -1,0 +1,7 @@
+.snackbar_color{
+  color:orange!important;
+}
+
+.MuiSnackbarContent-root{
+    background-color: rgb(159, 96, 96) !important;
+}

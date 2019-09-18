@@ -29,7 +29,7 @@ const  {handleFieldChange,onClickLogin,login,history}=props;
      </Grid>
      </Grid>
      <Grid container style = {{marginTop: 10}}>
-     <Grid item md={7}  style= {{background : "#009688", height:"750px", width:"50000px"}}>
+     <Grid item md={7}  style= {{background : "#009688", height:"680px", width:"50000px"}}>
 
      </Grid>
 
